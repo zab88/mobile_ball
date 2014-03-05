@@ -1,4 +1,16 @@
 <div>
 	<h1>Tournaments</h1>
 	<a href="#/">back</a>
+	<div class="input-group">
+		<input type="text" class="form-control" ng-model="search">
+		<span class="input-group-btn">
+			<button class="btn btn-primary" type="button" ng-click="searchItem()"><i class="glyphicon glyphicon-search"></i></button>
+		</span>
+	</div><!-- /input-group -->
+	<div id="response">
+
+	</div>
+	<div class="alert alert-danger hidden" id="error">
+
+	</div>
 </div>
