@@ -1,6 +1,16 @@
-<div>
+<div class="container margin-bottom">
+	<div class="logo"><img src="../img/project_name.png"></div>
+</div>
+<div class="container margin-bottom">
 	<ul class="nav">
-		<li><a href="#/tournament">Tournaments</a></li>
-		<li><a href="#/timetable">Timetable</a></li>
+		<li ng-repeat="tour in tournament">
+			<a href="#/matches/{{ tour.id }}">{{ tour.name }}</a>
+		</li>
+	</ul>
+</div>
+<div class="container bg-success">
+	<ul class="navigation">
+		<li><a class="btn btn-success" href="#/tournament">Tournaments</a></li>
+		<li><a class="btn btn-success" href="#/timetable">Timetable</a></li>
 	</ul>
 </div>

@@ -4,3 +4,22 @@
 #tournament{
 
 }
+.navigation{
+	margin: 15px 0;
+	padding: 0;
+	list-style: none;
+	width: 100%;
+}
+.navigation li{
+	width: 100%;
+	margin-bottom: 15px;
+}
+.navigation li a{
+	width: 100%;
+}
+.margin-bottom{
+	margin-bottom: 25px;
+}
+.back{
+	margin-top: 15px;
+}

@@ -1,6 +1,15 @@
 'use strict';
 
+var database = window.localStorage;
+if(database.length == 0){
+	console.log('LocalStorage empty');
+}else{
+	console.log(database.getItem('tournament'));
+//	database.clear();
+}
 function HomeController($scope){
+	(database.getItem('tournament'))? $scope.tournament = JSON.parse(database.getItem('tournament')) : $scope.tournament =[];
+
 }
 function MatchesController($scope,$routeParams){
 	if($routeParams.id){
@@ -13,9 +22,13 @@ function MatchesController($scope,$routeParams){
 			},
 			success: function( response ) {
 				if(!response.error){
+					console.log(response);
 					var games = response.games,
 						teams = response.teams,
 						tournament = response.tournament;
+					$('.t_name').data('name',tournament.t_name).append(tournament['t_name']);
+					$('.t_id').val(tournament['t_id']);
+
 					/*
 					 * input games
 					 * */
@@ -121,8 +134,19 @@ function MatchesController($scope,$routeParams){
 			}),
 			complete: (function(response) {
 				console.log('complete');
+
 			})
 		});
+		(database.getItem('tournament'))? $scope.tournament = JSON.parse(database.getItem('tournament')) : $scope.tournament =[];
+		$scope.AddStory = function(){
+			var id = $('.t_id').val(),
+				name = $('.t_name').data('name');
+			$scope.tournament.push(
+				{ id : id, name: name}
+			)
+			console.log(id,name);
+			database.setItem('tournament', JSON.stringify($scope.tournament));
+		}
 	}
 }
 function TimetableController($scope){
@@ -138,7 +162,8 @@ function TournamentController($scope){
 					q: $scope.search
 				},
 			success: function(response){
-				if(response != ''){
+				if(!response.error){
+					console.log(response);
 					var list = '<ul class="nav">';
 					for(var i = 0; i < response.length; i++){
 						list += '<li><a href="#/matches/'+response[i].t_id+'">'+
@@ -152,7 +177,7 @@ function TournamentController($scope){
 					$('#response').append(list);
 				}else{
 					$('#response').empty();
-					$('#error').empty().removeClass('hidden').append('This tournament is no');
+					$('#error').empty().removeClass('hidden').append(response.error_message);
 				}
 			},
 			error: function(){

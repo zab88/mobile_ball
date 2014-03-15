@@ -1,6 +1,11 @@
-<div>
-	<h1>Matches</h1>
-	<a href="#/tournament/">back</a>
+<div class="container">
+	<a href="#/tournament/" class="btn btn-primary back">back</a>
+	<h2>Matches</h2>
+	<div class="subscript">
+		<div ng-model="t_name" class="t_name" data-name=""></div>
+		<input type="hidden" ng-model="tournamentId" class="t_id">
+		<button class="btn btn-default right" ng-click="AddStory()"><i class="glyphicon glyphicon-star-empty"></i></button>
+	</div>
 	<div id="games" class="table-responsive"></div>
 	<div id="teams" class="table-responsive"></div>
 	<div id="tournament" class="table-responsive"></div>

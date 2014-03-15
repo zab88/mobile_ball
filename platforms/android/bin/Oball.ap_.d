@@ -36,6 +36,7 @@ C:\WebServers\home\obal.local\platforms\android\assets\www\fonts\glyphicons-half
 C:\WebServers\home\obal.local\platforms\android\assets\www\fonts\glyphicons-halflings-regular.ttf \
 C:\WebServers\home\obal.local\platforms\android\assets\www\fonts\glyphicons-halflings-regular.woff \
 C:\WebServers\home\obal.local\platforms\android\assets\www\img\logo.png \
+C:\WebServers\home\obal.local\platforms\android\assets\www\img\project_name.png \
 C:\WebServers\home\obal.local\platforms\android\assets\www\js\angular-mobile.js \
 C:\WebServers\home\obal.local\platforms\android\assets\www\js\angular-route.min.js \
 C:\WebServers\home\obal.local\platforms\android\assets\www\js\angular-touch.js \
