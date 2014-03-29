@@ -75,66 +75,14 @@ function MatchesController($scope,$routeParams){
 			},
 			success: function( response ) {
 				if(!response.error){
-					console.log(response);
+//					console.log(response);
 					var games = response.games,
 						teams = response.teams,
 						tournament = response.tournament;
 					$('.t_name').data('name',tournament.t_name).append(tournament['t_name']);
 					$('.t_id').val(tournament['t_id']);
-
-					/*
-					 * input games
-					 * */
-					if(games){
-						var tableGames = '<h3>Games</h3>';
-						tableGames += '<table class="table table-bordered">';
-						tableGames += '<tr>';
-						tableGames += '<th>Id</th>';
-						tableGames += '<th>Time</th>';
-						tableGames += '<th>Place</th>';
-						tableGames += '<th>S1</th>';
-						tableGames += '<th>S2</th>';
-						tableGames += '<th>Status</th>';
-						tableGames += '<th>Teame1</th>';
-						tableGames += '<th>Teame2</th>';
-						tableGames += '</tr>';
-						for(var i = 0; i < games.length; i++){
-							tableGames += '<tr>';
-							tableGames += '<td>' + games[i]['id'] + '</td>';
-							tableGames += '<td>' + games[i].date_time + '</td>';
-							tableGames += '<td>' + games[i].place + '</td>';
-							tableGames += '<td>' + games[i].s1 + '</td>';
-							tableGames += '<td>' + games[i].s2 + '</td>';
-							tableGames += '<td>' + games[i]['status'] + '</td>';
-							tableGames += '<td>' + games[i].team1 + '</td>';
-							tableGames += '<td>' + games[i].team2 + '</td>';
-							tableGames += '</tr>';
-						}
-						tableGames += '</table>';
-					}
-					$('#games').append(tableGames);
-					
-					
-					/*
-					 * input Teams
-					 * */
-					if(teams){
-						tableGames = '<h3>Teams</h3>';
-						tableGames += '<table class="table table-bordered">';
-						tableGames += '<tr>';
-						tableGames += '<th>Id</th>';
-						tableGames += '<th>Name</th>';
-						tableGames += '</tr>';
-						for(var i = 0; i < teams.length; i++){
-							tableGames += '<tr>';
-							tableGames += '<td>' + teams[i]['id'] + '</td>';
-							tableGames += '<td>' + teams[i]['name']+ '</td>';
-							tableGames += '</tr>';
-						}
-						tableGames += '</table>';
-						$('#teams').append(tableGames);
-					}
-					/*
+					var tableGames;
+ 					/*
 					 * input Tournament
 					 * */
 					if(tournament){
@@ -180,35 +128,22 @@ function MatchesController($scope,$routeParams){
 				}else{
 					$('#error').empty().removeClass('hidden').append('This tournament is no');
 				}
-					
-					
-					
 					/*
 					 * input Teams
 					 * */
 					var teams_arr = []
 					if(teams){
-						tableGames = '<h3>Teams</h3>';
-						tableGames += '<table class="table table-bordered">';
-						tableGames += '<tr>';
-						tableGames += '<th>Id</th>';
-						tableGames += '<th>Name</th>';
-						tableGames += '</tr>';
 						for(var i = 0; i < teams.length; i++){
-							tableGames += '<tr>';
-							tableGames += '<td>' + teams[i]['id'] + '</td>';
-							tableGames += '<td>' + teams[i]['name']+ '</td>';
-							tableGames += '</tr>';
 							
 							var t = new Team(teams[i]['name'], teams[i]['id'])
 							teams_arr.push(t)
 						}
-						tableGames += '</table>';
-						$('#teams').append(tableGames);
 					}
 					//console.log(teams_arr)
 					//ALL GAMES
-					
+					/*
+					 * input games
+					 * */
 					var games_generated = []
 					for (var i in teams_arr){
 						for (var j in teams_arr){
@@ -307,13 +242,13 @@ function MatchesController($scope,$routeParams){
 						var html = '';
 						var team_place = 1;
 						//header
-						html += '<tr><th>�������</th>';
+						html += '<tr><th>Teams</th>';
 						/*
 						for (var j in teams){
 							html += '<th>'+teams[j].name.substr(0, 4)+'...</th>'
 						}*/
-						html += '<th>�����</th>'
-						html += '<th>�����</th>'
+						html += '<th>Score</th>'
+						html += '<th>Place</th>'
 						html += '</tr>';
 
 						//body
@@ -340,12 +275,6 @@ function MatchesController($scope,$routeParams){
 							html+
 							'</table>';
 						$('.table_wrap').html(html)
-						
-					
-					
-					
-
-
 			},
 			error: (function(response) {
 				console.log('error');
