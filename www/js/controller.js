@@ -66,6 +66,7 @@ function MatchesController($scope,$routeParams){
 
 
 	if($routeParams.id){
+		$scope.class = 'glyphicon-star-empty';
 		$.ajax({
 			url:'http://oball.ru/mobile/get_tournament',
 			type:'GET',
@@ -285,16 +286,40 @@ function MatchesController($scope,$routeParams){
 
 			})
 		});
-		(database.getItem('tournament'))? $scope.tournament = JSON.parse(database.getItem('tournament')) : $scope.tournament =[];
+		var arr;
+		(database.getItem('tournament'))? arr = JSON.parse(database.getItem('tournament')) : arr = [];
+		var flag = 0;
+		if(arr){
+			if(in_array($routeParams.id,arr)){
+				$scope.class = 'glyphicon-star';
+				flag = 1;
+			}
+		}
 		$scope.AddStory = function(){
 			var id = $('.t_id').val(),
 				name = $('.t_name').data('name');
-			$scope.tournament.push(
-				{ id : id, name: name}
-			)
-			console.log(id,name);
-			database.setItem('tournament', JSON.stringify($scope.tournament));
+			if(!flag){
+				arr.push(
+					{ id : id, name: name}
+				)
+				database.setItem('tournament', JSON.stringify(arr));
+				$scope.class = 'glyphicon-star';
+				flag = 1;
+			}else{
+				var deleteElem = null;
+				for(var i = 0; i < arr.length; i++){
+					if($routeParams.id == arr[i].id){
+						deleteElem = i;
+					}
+				}
+				arr.splice(deleteElem,1);
+				flag = 0;
+				database.setItem('tournament', JSON.stringify(arr));
+				$scope.class = 'glyphicon-star-empty';
+			}
+
 		}
+
 	}
 }
 function TimetableController($scope){
@@ -311,7 +336,6 @@ function TournamentController($scope){
 				},
 			success: function(response){
 				if(!response.error){
-					console.log(response);
 					var list = '<ul class="nav">';
 					for(var i = 0; i < response.length; i++){
 						list += '<li><a href="#/matches/'+response[i].t_id+'">'+
@@ -334,4 +358,12 @@ function TournamentController($scope){
 			});
 
 	}
+}
+function in_array(id, arr){
+	for(var i = 0; i < arr.length; i++){
+		if(id == arr[i].id){
+			return true;
+		}
+	}
+	return false;
 }
